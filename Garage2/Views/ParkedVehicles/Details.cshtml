@@ -1,0 +1,54 @@
+﻿@model Garage2.Models.ParkedVehicle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ParkedVehicle</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vehicleType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vehicleType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.color)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.color)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.brand)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.brand)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.model)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.numberOfWheels)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.numberOfWheels)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.arrivalTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.arrivalTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.registrationNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Garage2.Models.ParkedVehicle>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.vehicleType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numberOfWheels)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.arrivalTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.vehicleType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numberOfWheels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.arrivalTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.registrationNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.registrationNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.registrationNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
