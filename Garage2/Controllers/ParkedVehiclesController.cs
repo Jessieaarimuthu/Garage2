@@ -12,6 +12,8 @@ namespace Garage2.Controllers
 {
     public class ParkedVehiclesController : Controller
     {
+        private readonly string viewModelIndex = "ParkedVehicleViewIndex";
+
         private readonly Garage2Context _context;
 
         public ParkedVehiclesController(Garage2Context context)
@@ -22,21 +24,28 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-              return _context.ParkedVehicle != null ? 
-                          View(await _context.ParkedVehicle.ToListAsync()) :
-                          Problem("Entity set 'Garage2Context.ParkedVehicle'  is null.");
+            var model = _context.ParkedVehicle.Select(p => new ParkedVehicle
+            {
+                VehicleType = p.VehicleType,
+                RegistrationNumber = p.RegistrationNumber,
+                ArrivalTime = p.ArrivalTime,
+
+            });
+
+            return View(viewModelIndex, await model.ToListAsync());
+                          
         }
 
         // GET: ParkedVehicles/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.ParkedVehicle == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var parkedVehicle = await _context.ParkedVehicle
-                .FirstOrDefaultAsync(m => m.registrationNumber == id);
+                .FirstOrDefaultAsync(m => m.RegistrationNumber == id);
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -70,7 +79,7 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.ParkedVehicle == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -90,7 +99,7 @@ namespace Garage2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("registrationNumber,vehicleType,color,brand,model,numberOfWheels,arrivalTime")] ParkedVehicle parkedVehicle)
         {
-            if (id != parkedVehicle.registrationNumber)
+            if (id != parkedVehicle.RegistrationNumber)
             {
                 return NotFound();
             }
@@ -104,7 +113,7 @@ namespace Garage2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ParkedVehicleExists(parkedVehicle.registrationNumber))
+                    if (!ParkedVehicleExists(parkedVehicle.RegistrationNumber))
                     {
                         return NotFound();
                     }
@@ -121,13 +130,13 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.ParkedVehicle == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var parkedVehicle = await _context.ParkedVehicle
-                .FirstOrDefaultAsync(m => m.registrationNumber == id);
+                .FirstOrDefaultAsync(m => m.RegistrationNumber == id);
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -141,10 +150,7 @@ namespace Garage2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.ParkedVehicle == null)
-            {
-                return Problem("Entity set 'Garage2Context.ParkedVehicle'  is null.");
-            }
+            
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             if (parkedVehicle != null)
             {
@@ -157,7 +163,7 @@ namespace Garage2.Controllers
 
         private bool ParkedVehicleExists(string id)
         {
-          return (_context.ParkedVehicle?.Any(e => e.registrationNumber == id)).GetValueOrDefault();
+          return (_context.ParkedVehicle?.Any(e => e.RegistrationNumber == id)).GetValueOrDefault();
         }
     }
 }

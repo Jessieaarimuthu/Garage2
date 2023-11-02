@@ -13,22 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.vehicleType)
+                @Html.DisplayNameFor(model => model.VehicleType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.color)
+                @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.brand)
+                @Html.DisplayNameFor(model => model.Brand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.model)
+                @Html.DisplayNameFor(model => model.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.numberOfWheels)
+                @Html.DisplayNameFor(model => model.NumberOfWheels)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.arrivalTime)
+                @Html.DisplayNameFor(model => model.ArrivalTime)
             </th>
             <th></th>
         </tr>
@@ -37,27 +37,27 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.vehicleType)
+                @Html.DisplayFor(modelItem => item.VehicleType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.color)
+                @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.brand)
+                @Html.DisplayFor(modelItem => item.Brand)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.model)
+                @Html.DisplayFor(modelItem => item.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.numberOfWheels)
+                @Html.DisplayFor(modelItem => item.NumberOfWheels)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.arrivalTime)
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.registrationNumber">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.registrationNumber">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.registrationNumber">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.RegistrationNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RegistrationNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RegistrationNumber">Delete</a>
             </td>
         </tr>
 }
