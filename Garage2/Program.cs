@@ -1,5 +1,5 @@
 namespace Garage2;
-
+using Garage2.Models;
 public class Program
 {
     public static void Main(string[] args)
@@ -29,6 +29,8 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        //DbInitializer.Seed(app);
 
         app.Run();
     }
