@@ -1,8 +1,3 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Garage2.Data;
-using Garage2.Models;
-
 namespace Garage2;
 
 public class Program
@@ -10,8 +5,6 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddDbContext<Garage2Context>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2Context") ?? throw new InvalidOperationException("Connection string 'Garage2Context' not found.")));
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
@@ -35,9 +28,7 @@ public class Program
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=ParkedVehicles}/{action=Index}/{id?}");
-
-        DbInitializer.Seed(app); //intializes the database with some parked vehicles if there is none in the database
+            pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
     }
