@@ -36,7 +36,7 @@ namespace Garage2.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle
-                .FirstOrDefaultAsync(m => m.registrationNumber == id);
+                .FirstOrDefaultAsync(m => m.RegistrationNumber == id);
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -60,6 +60,11 @@ namespace Garage2.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.ParkedVehicle.Any(v => v.RegistrationNumber == parkedVehicle.RegistrationNumber))
+                {
+                    throw new Exception("Vehicle with this registration number is already parked.");
+                }
+
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,7 +95,7 @@ namespace Garage2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("registrationNumber,vehicleType,color,brand,model,numberOfWheels,arrivalTime")] ParkedVehicle parkedVehicle)
         {
-            if (id != parkedVehicle.registrationNumber)
+            if (id != parkedVehicle.RegistrationNumber)
             {
                 return NotFound();
             }
@@ -104,7 +109,7 @@ namespace Garage2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ParkedVehicleExists(parkedVehicle.registrationNumber))
+                    if (!ParkedVehicleExists(parkedVehicle.RegistrationNumber))
                     {
                         return NotFound();
                     }
@@ -127,7 +132,7 @@ namespace Garage2.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle
-                .FirstOrDefaultAsync(m => m.registrationNumber == id);
+                .FirstOrDefaultAsync(m => m.RegistrationNumber == id);
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -157,7 +162,7 @@ namespace Garage2.Controllers
 
         private bool ParkedVehicleExists(string id)
         {
-          return (_context.ParkedVehicle?.Any(e => e.registrationNumber == id)).GetValueOrDefault();
+          return (_context.ParkedVehicle?.Any(e => e.RegistrationNumber == id)).GetValueOrDefault();
         }
     }
 }
