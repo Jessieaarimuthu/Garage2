@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Garage2.Data;
+using Garage2.Models;
+
 namespace Garage2;
 
 public class Program
@@ -34,6 +36,8 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=ParkedVehicles}/{action=Index}/{id?}");
+
+        DbInitializer.Seed(app); //intializes the database with some parked vehicles if there is none in the database
 
         app.Run();
     }

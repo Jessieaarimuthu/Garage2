@@ -6,7 +6,6 @@ public enum VehicleType
     Car = 1,
     Truck,
     Motorcycle,
-    Bicycle,
 }
 
 public class ParkedVehicle
