@@ -113,7 +113,17 @@ namespace Garage2.Controllers
             {
                 try
                 {
-                    _context.Update(parkedVehicle);
+                    //retrive existing vechicles on database
+                    var existingParkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+
+                    //only edit the properties we want the user to be able to edit
+                    existingParkedVehicle.RegistrationNumber = parkedVehicle.RegistrationNumber;
+                    existingParkedVehicle.Brand = parkedVehicle.Brand;
+                    existingParkedVehicle.Color = parkedVehicle.Color;
+                    existingParkedVehicle.Model = parkedVehicle.Model;
+                    existingParkedVehicle.NumberOfWheels = parkedVehicle.NumberOfWheels;
+                    existingParkedVehicle.VehicleType = parkedVehicle.VehicleType;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
